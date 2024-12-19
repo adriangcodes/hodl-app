@@ -1,3 +1,6 @@
-from cmc_api_current import current_bitcoin_price
+from cmc_api_current import print_live_price
+from current_position import print_total_coins, print_portfolio_value
 
-print(current_bitcoin_price)
+print_live_price()
+print_total_coins()
+print_portfolio_value()
