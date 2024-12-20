@@ -4,7 +4,7 @@ Python CLI app used to:
 2. Calculate the current value based on live data via CoinMarketCap API
 3. Calculate the total gains (or losses) based on live and historical data via CoinMarketCap API
 
-PLEASE NOTE:  the historical API data is limited to the previous 1 month. This is a limited paid API that will be active until this assessment is marked.
+PLEASE NOTE: the historical API data is limited to the previous 1 month. This is a limited paid API that will be active until this assessment is marked.
 
 Usage of this API is governed by CoinMarketCap’s Terms of Service. Please ensure compliance with their terms when using their data. https://coinmarketcap.com/terms/
 
