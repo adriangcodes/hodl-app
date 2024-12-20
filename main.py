@@ -25,14 +25,14 @@ holdings = [
 
 # CSV Management
 ## Both Users and Admins have read access
-# user.show_holdings()
-# admin.show_holdings()
+user.show_holdings()
+admin.show_holdings()
 ## Only Admins have write access
-# admin.add_holding(0.001, '2024-12-19')
-# admin.replace_holdings(holdings)
+admin.add_holding(0.001, '2024-12-19')
+admin.replace_holdings(holdings)
 
 ## Portfolio Calculations
-# print_live_price()
-# print_total_coins()
-# print_portfolio_value()
-# calculate_portfolio_gains()
+print_live_price()
+print_total_coins()
+print_portfolio_value()
+calculate_portfolio_gains()
