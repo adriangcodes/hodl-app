@@ -1,0 +1,57 @@
+User Guide
+
+This document provides an overview of the functionality available in main.py and how to use the provided functions for portfolio management and analysis.
+
+The functionality of this program is split into two parts: CSV Management and Portfolio Calculations.
+
+
+1. CSV Management
+
+1.1. user.show_holdings()
+	•	Description: Displays the user’s current Bitcoin holdings.
+    •	Output: Prints the list of holdings stored in the CSV file (read-only for regular users).
+
+1.2. admin.show_holdings()
+	•	Description: Displays the current Bitcoin holdings. This is identical to the user’s view.
+
+1.3. admin.add_holding(amount, date)
+	•	Description: Adds a new Bitcoin holding to the CSV file. Only available to administrators.
+	•	Parameters:
+    	•	amount (float): The amount of Bitcoin to add.
+    	•	date (str): The purchase date in YYYY-MM-DD format.
+    •	Output: Updates the CSV file with the new holding.
+
+1.4. admin.replace_holdings(holdings)
+	•	Description: Replaces all existing Bitcoin holdings with a new list. Only available to administrators.
+	•	Parameters:
+    	•	holdings (list of dict): A list of dictionaries where each dictionary represents a holding with Amount and Date keys.
+	•	Output: Replaces all entries in the CSV with the new data.
+
+
+2. Portfolio Calculations
+
+2.1. print_live_price()
+	•	Description: Fetches and displays the current live price of Bitcoin.
+	•	Output: Prints the live Bitcoin price in AUD.
+
+2.2. print_total_coins()
+	•	Description: Calculates and displays the total amount of Bitcoin in the user’s holdings.
+    •	Output: Prints the total amount of Bitcoin held across all entries.
+
+2.3. print_portfolio_value()
+	•	Description: Calculates and displays the total current value of the portfolio based on live Bitcoin prices.
+	•	Output: Prints the current value of the portfolio in AUD.
+
+2.4. calculate_portfolio_gains()
+	•	Description: Calculates the portfolio’s investment, current value, and gain/loss by comparing the historical purchase price with the current price.
+    •	Output:
+	•	    Prints:
+	•	        Portfolio Investment
+	•	        Current Portfolio Value
+	•	        Gain/Loss
+
+
+Notes:
+	•	Ensure you have the appropriate permissions when calling admin-specific functions (add_holding or replace_holdings).
+    •	The historical API is limited in date scope, and can only pull data from up to one month prior. Please ensure that any date entries or amendments to the CSV file are kept within 1 month of testing date.
+	•	The CSV file 'holdings.csv' should exist and be properly formatted for the code to work correctly.

@@ -1,5 +1,5 @@
 import csv 
-from cmc_api_current import pull_live_price
+from cmc_api_live import pull_live_price
 
 def calculate_total_coins():
     total_coins = 0

@@ -1,43 +1,57 @@
 import requests
 import datetime
 
-# Your CoinMarketCap API key
-api_key = "d7444da5-2275-4026-887e-1f5dfb3c6d92"
+# CoinMarketCap API key
+api_key = 'd7444da5-2275-4026-887e-1f5dfb3c6d92'
 
-# API URL for cryptocurrency historical quotes
-url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/historical"
+# CoinMarketCap API URL for historical cryptocurrency quotes
+url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/historical'
 
-# Define the date and convert it to a timestamp
-date = "2023-01-01"  # Example date in YYYY-MM-DD
-start_timestamp = int(datetime.datetime.strptime(date, "%Y-%m-%d").timestamp())
-
-# Parameters
-parameters = {
-    "symbol": "BTC",  # Bitcoin's ticker symbol
-    "time_start": start_timestamp,  # Start date as a Unix timestamp
-    "time_end": start_timestamp + 86400,  # End timestamp (next day to ensure full data)
-    "convert": "USD",  # Convert price to USD
-}
-
-# Headers
 headers = {
-    "Accepts": "application/json",
-    "X-CMC_PRO_API_KEY": api_key,
+    'Accepts': 'application/json',
+    'X-CMC_PRO_API_KEY': api_key,
 }
 
-# Making the API request
-try:
-    response = requests.get(url, headers=headers, params=parameters)
-    data = response.json()
+def pull_historical_price(date):
+    start_timestamp = int(datetime.datetime.strptime(date, '%Y-%m-%d').timestamp())
 
-    # Extracting the historical price data
-    if "data" in data and "quotes" in data["data"]:
-        historical_data = data["data"]["quotes"]
-        for entry in historical_data:
-            time = entry["timestamp"]
-            price = entry["quote"]["USD"]["price"]
-            print(f"On {time}, Bitcoin's price was: ${price:.2f}")
-    else:
-        print("No historical data found.")
-except Exception as e:
-    print(f"An error occurred: {e}")
+    parameters = {
+        'symbol': 'BTC',
+        'time_start': start_timestamp,
+        'time_end': start_timestamp + 86400,
+        'convert': 'AUD',
+    }
+    try:
+        response = requests.get(url, headers=headers, params=parameters)
+        data = response.json()
+
+        if 'data' in data and 'quotes' in data['data']:
+            historical_data = data['data']['quotes']
+            prices = []
+
+            for entry in historical_data:
+                price = entry['quote']['AUD']['price']
+                prices.append(price)
+
+            if prices:
+                average_price = sum(prices) / len(prices)
+                return average_price
+            else:
+                print('No price data available for this day.')
+        else:
+            print('No historical data found. API is limited to previous 1 month.')
+            
+    except requests.exceptions.HTTPError as http_err:
+        print(f'HTTP error occurred: {http_err}')
+    except requests.exceptions.ConnectionError as conn_err:
+        print(f'Connection error occurred: {conn_err}')
+    except requests.exceptions.Timeout as timeout_err:
+        print(f'Timeout error occurred: {timeout_err}')
+    except requests.exceptions.RequestException as req_err:
+        print(f'Request error occurred: {req_err}')
+    except KeyError as key_err:
+        print(f'Key error accessing response data: {key_err}')
+    except Exception as e:
+        print(f'An unexpected error occurred: {e}')
+
+    return 0
