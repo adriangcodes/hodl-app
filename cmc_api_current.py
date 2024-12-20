@@ -22,11 +22,24 @@ def pull_live_price():
         live_price = data["data"]["BTC"]["quote"]["AUD"]["price"]
         return live_price
 
-    except Exception as e: # Expand error handling
-        print(f"An error occurred: {e}")
-        return 0
+    except requests.exceptions.HTTPError as http_err:
+        print(f"HTTP error occurred: {http_err}")
+    except requests.exceptions.ConnectionError as conn_err:
+        print(f"Connection error occurred: {conn_err}")
+    except requests.exceptions.Timeout as timeout_err:
+        print(f"Timeout error occurred: {timeout_err}")
+    except requests.exceptions.RequestException as req_err:
+        print(f"Request error occurred: {req_err}")
+    except KeyError as key_err:
+        print(f"Key error accessing response data: {key_err}")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+    
+    return 0
     
 def print_live_price():
     price = pull_live_price()
-    print(f"The current price of Bitcoin in AUD is: ${price:.2f}")
-    # return price
+    if price > 0:
+        print(f'The current price of Bitcoin in AUD is: ${price:.2f}')
+    else:
+        print('Unable to pull Bitcoin live price.')
