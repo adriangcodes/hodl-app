@@ -3,6 +3,7 @@ import csv
 def show_holdings():
     with open('holdings.csv') as file:
         content = csv.DictReader(file)
+        print('The following Bitcoin holdings are saved:')
         for row in content:
             print(row)
             
@@ -10,7 +11,7 @@ def add_holding(file, amount, date):
     with open('holdings.csv', 'a', newline='') as file:
         writer = csv.DictWriter(file, fieldnames=['Amount', 'Date'])
         writer.writerow({'Amount': amount, 'Date': date})
-        print(f'BTC holding added: Amount={amount}, Date={date}')
+        print(f'Bitcoin holding added: Amount = {amount}, Date = {date}')
         
 holdings = [
     {
@@ -32,4 +33,4 @@ def replace_holdings():
         writer = csv.DictWriter(file, holdings[0].keys())
         writer.writeheader()
         writer.writerows(holdings)
-        print('BTC holdings updated - please review CSV.')
+        print('Bitcoin holdings updated - please review CSV file.')
